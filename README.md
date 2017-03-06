@@ -8,3 +8,7 @@ BucketAnalysis will then return a tuple of the following values: the bucket name
 Other keyword arguments include: "size_format", which defaults to bytes, but can also be set to KB, MB, or GB, modifying the units for which total file size will be reported; "sorting", which can be set to either newest or oldest, and determines whether the N files returned are the N newest or N oldest files modified in the bucket.
 
 IMPORTANT NOTE: This script is intended to function on a SINGLE bucket and must be wrapped into a larger script if desired to run on multiple buckets.
+
+Example procedure for running the script:
+Open a python command line, and do the following:
+>> import StorageAnalysis
