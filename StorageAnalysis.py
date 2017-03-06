@@ -40,7 +40,6 @@ def BucketAnalysis(bucket, N, size_format='bytes', sorting='oldest', grouping=''
     # Sum over object sizes, using unit specified in size_format
     object_size_accumulator = 0
     for obj in bucket_objects:
-        print obj, obj.last_modified
         if size_format == 'KB':
             object_size_accumulator += (obj.size / (2**10))
         elif size_format == 'MB':
