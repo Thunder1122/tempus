@@ -10,9 +10,14 @@ Other keyword arguments include: "size_format", which defaults to bytes, but can
 IMPORTANT NOTE: This script is intended to function on a SINGLE bucket and must be wrapped into a larger script if desired to run on multiple buckets.
 
 Example procedure for running the script:
-Open a python command line, and do the following:
->> import StorageAnalysis as sa
->> import boto3
->> s3 = boto3.resource('s3')
->> bucket = list(s3.buckets.all())[0]
->> sa.BucketAnalysis(bucket, N, size_format='KB', sorting='newest')
+Open a python command line, and do the following
+
+$ import StorageAnalysis as sa
+
+$ import boto3
+
+$ s3 = boto3.resource('s3')
+
+$ bucket = list(s3.buckets.all())[0]
+
+$ sa.BucketAnalysis(bucket, N, size_format='KB', sorting='newest')
