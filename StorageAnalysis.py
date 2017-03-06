@@ -1,10 +1,6 @@
 from __future__ import division
 import boto3
 
-s3 = boto3.resource('s3')
-
-buckets = list(s3.buckets.all())
-
 
 def BucketAnalysis(bucket, N, size_format='bytes', sorting='oldest', grouping=''):
     '''
@@ -38,7 +34,6 @@ def BucketAnalysis(bucket, N, size_format='bytes', sorting='oldest', grouping=''
 
     # Find how many objects in this bucket, and store all of them
     bucket_objects = list(bucket.objects.all())
-    bucket_objects = [bucket_objects[1], bucket_objects[0], bucket_objects[2]]
     object_count = len(bucket_objects)
 
     # Initialize a variable to store the running total of bytes/KB/MB/GB
@@ -56,16 +51,18 @@ def BucketAnalysis(bucket, N, size_format='bytes', sorting='oldest', grouping=''
         else:
             object_size_accumulator += int(obj.size)
 
-    bucket_objects.sort(key=lambda x: x.last_modified)
+    # Sort the buckets from oldest to newest based on last_modified
+    bucket_objects.sort(key=lambda obj: obj.last_modified)
 
+    # Reverse the order depending on sorting keyword
     if (sorting == 'newest'):
         bucket_objects.reverse()
 
+    # Check to make sure slicing won't throw and index error, then do it
+    # If an index error would be thrown, N is larger than the number of objects,
+    # so as many objects as possible will be returned rather than N objects
     if object_count > N:
         bucket_objects = bucket_objects[:N]
 
 
     return bucket_name, bucket_creation, object_count, object_size_accumulator, bucket_objects
-
-
-print BucketAnalysis(buckets[0], 3, size_format = 'KB', sorting='oldest')
