@@ -11,4 +11,8 @@ IMPORTANT NOTE: This script is intended to function on a SINGLE bucket and must 
 
 Example procedure for running the script:
 Open a python command line, and do the following:
->> import StorageAnalysis
+>> import StorageAnalysis as sa
+>> import boto3
+>> s3 = boto3.resource('s3')
+>> bucket = list(s3.buckets.all())[0]
+>> sa.BucketAnalysis(bucket, N, size_format='KB', sorting='newest')
